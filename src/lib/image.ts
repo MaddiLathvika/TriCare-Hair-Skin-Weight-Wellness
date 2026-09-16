@@ -16,7 +16,8 @@ export async function fileToCompressedDataUrl(file: File, maxSide = 1024, qualit
 }
 
 export function dataUrlToBlob(dataUrl: string): Blob {
-  const [meta, base64] = dataUrl.split(",");
+  const meta = dataUrl.slice(0, dataUrl.indexOf(","));
+  const base64 = dataUrl.slice(dataUrl.indexOf(",") + 1);
   const mime = /:(.*?);/.exec(meta)?.[1] ?? "image/jpeg";
   const binary = atob(base64);
   const bytes = new Uint8Array(binary.length);
