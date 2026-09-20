@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      agent_profiles: {
+        Row: {
+          agent_code: string
+          agent_name: string
+          branch: string | null
+          club_tier: string | null
+          created_at: string
+          division: string | null
+          id: string
+          joined_on: string | null
+          updated_at: string
+        }
+        Insert: {
+          agent_code?: string
+          agent_name?: string
+          branch?: string | null
+          club_tier?: string | null
+          created_at?: string
+          division?: string | null
+          id: string
+          joined_on?: string | null
+          updated_at?: string
+        }
+        Update: {
+          agent_code?: string
+          agent_name?: string
+          branch?: string | null
+          club_tier?: string | null
+          created_at?: string
+          division?: string | null
+          id?: string
+          joined_on?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       assessments: {
         Row: {
           answers: Json
@@ -44,6 +80,48 @@ export type Database = {
         }
         Relationships: []
       }
+      policies: {
+        Row: {
+          client_name: string
+          commission: number
+          created_at: string
+          id: string
+          issued_on: string
+          plan_name: string | null
+          policy_no: string
+          premium: number
+          status: Database["public"]["Enums"]["policy_status"]
+          sum_assured: number
+          user_id: string
+        }
+        Insert: {
+          client_name: string
+          commission?: number
+          created_at?: string
+          id?: string
+          issued_on?: string
+          plan_name?: string | null
+          policy_no: string
+          premium?: number
+          status?: Database["public"]["Enums"]["policy_status"]
+          sum_assured?: number
+          user_id: string
+        }
+        Update: {
+          client_name?: string
+          commission?: number
+          created_at?: string
+          id?: string
+          issued_on?: string
+          plan_name?: string | null
+          policy_no?: string
+          premium?: number
+          status?: Database["public"]["Enums"]["policy_status"]
+          sum_assured?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -65,15 +143,55 @@ export type Database = {
         }
         Relationships: []
       }
+      targets: {
+        Row: {
+          created_at: string
+          id: string
+          period_month: string
+          policy_goal: number
+          premium_goal: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          period_month: string
+          policy_goal?: number
+          premium_goal?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          period_month?: string
+          policy_goal?: number
+          premium_goal?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      portal_leaderboard: {
+        Args: never
+        Returns: {
+          agent_code: string
+          agent_name: string
+          policy_count: number
+          premium_total: number
+          user_id: string
+        }[]
+      }
     }
     Enums: {
       concern_kind: "skin" | "hair" | "weight"
+      policy_status: "proposal" | "issued" | "lapsed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -202,6 +320,7 @@ export const Constants = {
   public: {
     Enums: {
       concern_kind: ["skin", "hair", "weight"],
+      policy_status: ["proposal", "issued", "lapsed"],
     },
   },
 } as const

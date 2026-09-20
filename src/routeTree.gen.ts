@@ -12,8 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as PortalRouteImport } from './routes/portal'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedAssessConcernRouteImport } from './routes/_authenticated/assess.$concern'
+import { Route as AuthenticatedDeskIndexRouteImport } from './routes/_authenticated/desk.index'
+import { Route as AuthenticatedDeskPoliciesRouteImport } from './routes/_authenticated/desk.policies'
 import { Route as AuthenticatedPlanIdRouteImport } from './routes/_authenticated/plan.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -30,6 +33,11 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortalRoute = PortalRouteImport.update({
+  id: '/portal',
+  path: '/portal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -41,6 +49,17 @@ const AuthenticatedAssessConcernRoute =
     path: '/assess/$concern',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedDeskIndexRoute = AuthenticatedDeskIndexRouteImport.update({
+  id: '/desk/',
+  path: '/desk/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDeskPoliciesRoute =
+  AuthenticatedDeskPoliciesRouteImport.update({
+    id: '/desk/policies',
+    path: '/desk/policies',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedPlanIdRoute = AuthenticatedPlanIdRouteImport.update({
   id: '/plan/$id',
   path: '/plan/$id',
@@ -50,45 +69,74 @@ const AuthenticatedPlanIdRoute = AuthenticatedPlanIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/portal': typeof PortalRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/assess/$concern': typeof AuthenticatedAssessConcernRoute
+  '/desk/policies': typeof AuthenticatedDeskPoliciesRoute
   '/plan/$id': typeof AuthenticatedPlanIdRoute
+  '/desk/': typeof AuthenticatedDeskIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/portal': typeof PortalRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/assess/$concern': typeof AuthenticatedAssessConcernRoute
+  '/desk/policies': typeof AuthenticatedDeskPoliciesRoute
   '/plan/$id': typeof AuthenticatedPlanIdRoute
+  '/desk': typeof AuthenticatedDeskIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/portal': typeof PortalRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/assess/$concern': typeof AuthenticatedAssessConcernRoute
+  '/_authenticated/desk/policies': typeof AuthenticatedDeskPoliciesRoute
   '/_authenticated/plan/$id': typeof AuthenticatedPlanIdRoute
+  '/_authenticated/desk/': typeof AuthenticatedDeskIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/dashboard' | '/assess/$concern' | '/plan/$id'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/portal'
+    | '/dashboard'
+    | '/assess/$concern'
+    | '/desk/policies'
+    | '/plan/$id'
+    | '/desk/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard' | '/assess/$concern' | '/plan/$id'
+  to:
+    | '/'
+    | '/auth'
+    | '/portal'
+    | '/dashboard'
+    | '/assess/$concern'
+    | '/desk/policies'
+    | '/plan/$id'
+    | '/desk'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/portal'
     | '/_authenticated/dashboard'
     | '/_authenticated/assess/$concern'
+    | '/_authenticated/desk/policies'
     | '/_authenticated/plan/$id'
+    | '/_authenticated/desk/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  PortalRoute: typeof PortalRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -114,6 +162,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/portal': {
+      id: '/portal'
+      path: '/portal'
+      fullPath: '/portal'
+      preLoaderRoute: typeof PortalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -126,6 +181,20 @@ declare module '@tanstack/react-router' {
       path: '/assess/$concern'
       fullPath: '/assess/$concern'
       preLoaderRoute: typeof AuthenticatedAssessConcernRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/desk/': {
+      id: '/_authenticated/desk/'
+      path: '/desk'
+      fullPath: '/desk/'
+      preLoaderRoute: typeof AuthenticatedDeskIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/desk/policies': {
+      id: '/_authenticated/desk/policies'
+      path: '/desk/policies'
+      fullPath: '/desk/policies'
+      preLoaderRoute: typeof AuthenticatedDeskPoliciesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/plan/$id': {
@@ -141,13 +210,17 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedAssessConcernRoute: typeof AuthenticatedAssessConcernRoute
+  AuthenticatedDeskPoliciesRoute: typeof AuthenticatedDeskPoliciesRoute
   AuthenticatedPlanIdRoute: typeof AuthenticatedPlanIdRoute
+  AuthenticatedDeskIndexRoute: typeof AuthenticatedDeskIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedAssessConcernRoute: AuthenticatedAssessConcernRoute,
+  AuthenticatedDeskPoliciesRoute: AuthenticatedDeskPoliciesRoute,
   AuthenticatedPlanIdRoute: AuthenticatedPlanIdRoute,
+  AuthenticatedDeskIndexRoute: AuthenticatedDeskIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -157,6 +230,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  PortalRoute: PortalRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
