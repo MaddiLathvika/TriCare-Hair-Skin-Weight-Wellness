@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as PortalRouteImport } from './routes/portal'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedAssessConcernRouteImport } from './routes/_authenticated/assess.$concern'
+import { Route as AuthenticatedDeskIndexRouteImport } from './routes/_authenticated/desk.index'
 import { Route as AuthenticatedPlanIdRouteImport } from './routes/_authenticated/plan.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -47,6 +48,11 @@ const AuthenticatedAssessConcernRoute =
     path: '/assess/$concern',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedDeskIndexRoute = AuthenticatedDeskIndexRouteImport.update({
+  id: '/desk/',
+  path: '/desk/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedPlanIdRoute = AuthenticatedPlanIdRouteImport.update({
   id: '/plan/$id',
   path: '/plan/$id',
@@ -60,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/assess/$concern': typeof AuthenticatedAssessConcernRoute
   '/plan/$id': typeof AuthenticatedPlanIdRoute
+  '/desk/': typeof AuthenticatedDeskIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/assess/$concern': typeof AuthenticatedAssessConcernRoute
   '/plan/$id': typeof AuthenticatedPlanIdRoute
+  '/desk': typeof AuthenticatedDeskIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -78,14 +86,27 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/assess/$concern': typeof AuthenticatedAssessConcernRoute
   '/_authenticated/plan/$id': typeof AuthenticatedPlanIdRoute
+  '/_authenticated/desk/': typeof AuthenticatedDeskIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/auth' | '/portal' | '/dashboard' | '/assess/$concern' | '/plan/$id'
+    | '/'
+    | '/auth'
+    | '/portal'
+    | '/dashboard'
+    | '/assess/$concern'
+    | '/plan/$id'
+    | '/desk/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    '/' | '/auth' | '/portal' | '/dashboard' | '/assess/$concern' | '/plan/$id'
+    | '/'
+    | '/auth'
+    | '/portal'
+    | '/dashboard'
+    | '/assess/$concern'
+    | '/plan/$id'
+    | '/desk'
   id:
     | '__root__'
     | '/'
@@ -95,6 +116,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/assess/$concern'
     | '/_authenticated/plan/$id'
+    | '/_authenticated/desk/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -148,6 +170,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAssessConcernRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/desk/': {
+      id: '/_authenticated/desk/'
+      path: '/desk'
+      fullPath: '/desk/'
+      preLoaderRoute: typeof AuthenticatedDeskIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/plan/$id': {
       id: '/_authenticated/plan/$id'
       path: '/plan/$id'
@@ -162,12 +191,14 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedAssessConcernRoute: typeof AuthenticatedAssessConcernRoute
   AuthenticatedPlanIdRoute: typeof AuthenticatedPlanIdRoute
+  AuthenticatedDeskIndexRoute: typeof AuthenticatedDeskIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedAssessConcernRoute: AuthenticatedAssessConcernRoute,
   AuthenticatedPlanIdRoute: AuthenticatedPlanIdRoute,
+  AuthenticatedDeskIndexRoute: AuthenticatedDeskIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
