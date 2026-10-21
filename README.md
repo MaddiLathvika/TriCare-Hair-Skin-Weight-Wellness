@@ -1,26 +1,99 @@
-# Your Friendly Helper
+# TriCare — Personal Care & Wellness Application
 
-hey lovable
+TriCare is a personal care and wellness web application designed to bring hair care, skincare, and weight management into one place. It aims to help users explore personalized care routines and maintain consistent wellness habits through a user-friendly interface.
 
-This project was built with [Lovable](https://lovable.dev).
+## Features
 
-**Live app**: https://tricare.lovable.app
+- **Hair Care:** Explore hair care routines and tips to support healthy hair.
+- **Skin Care:** Access skincare guidance and build consistent skincare habits.
+- **Weight Management:** Support healthy weight-management goals and lifestyle habits.
+- **Personal Care in One Place:** Access multiple wellness categories through a single application.
+- **User-Friendly Interface:** Navigate care and wellness information through a simple web interface.
 
-## Build with Lovable
+## Technology Stack
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/91c6b5fd-cf14-43fa-bbbb-0e756fde22c6).
+Update this section according to the technologies and integrations in your actual codebase.
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+- **Frontend:** React
+- **Language:** TypeScript
+- **Build Tool:** Vite
+- **Styling:** Tailwind CSS
+- **UI Components:** shadcn/ui
+- **Development Platform:** Lovable
 
-## Development
+## Live Demo
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+Visit the application:
 
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+**https://tricare.lovable.app**
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js
+- npm
+- Git
+
+### Installation
+
+Clone the repository:
+
+```bash
+git clone YOUR_GITHUB_REPOSITORY_URL
+```
+
+Navigate to the project directory:
+
+```bash
+cd YOUR_PROJECT_DIRECTORY
+```
+
+Install the dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
 npm run dev
 ```
+
+Open the local URL displayed in the terminal to view the application.
+
+## Project Structure
+
+A typical project structure may look like this:
+
+```text
+TriCare/
+├── public/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── assets/
+│   └── ...
+├── package.json
+├── index.html
+├── vite.config.ts
+└── README.md
+```
+
+The exact structure may vary depending on the implemented features.
+
+## Project Objectives
+
+- Bring hair care, skincare, and weight management together in one application.
+- Make personal care information easier to access.
+- Encourage consistent self-care and healthy lifestyle habits.
+- Provide a clean and accessible user experience.
+
+## Future Enhancements
+
+- Personalized care recommendations.
+- Daily routine and habit tracking.
+- Progress tracking for wellness goals.
+- Expanded hair and skincare resources.
+- User profiles and saved routines, if supported by the application architecture.
